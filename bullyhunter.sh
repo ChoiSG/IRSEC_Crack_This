@@ -28,25 +28,25 @@ if [[ $1 == debug ]]; then
     exit
 fi
 
-echo "Updating..."
+# Updating system
 sudo add-apt-repository universe
 sudo apt-get update
 
-echo "Setting up basic dependencies..."
+# Setting up basic dependencies...
 for i in build-essential linux-headers-`uname -r` git python dwarfdump zip python-crypto python-pip; do
 	sudo apt-get install -y $i
 done
 
 pip install distorm3
 
-echo "Setting up LiME..."
+# Setting up LiME...
 git clone https://github.com/504ensicsLabs/LiME
 cd LiME/src/
 limeKO=$(make | tail -1 | cut -d ' ' -f 3)
 
 insmod $limeKO "path=/tmp/test.mem format=lime"
 
-echo "Setting up volatility..."
+# Setting up volatility...
 cd ../../
 git clone https://github.com/volatilityfoundation/volatility
 cd volatility/tools/linux
