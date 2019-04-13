@@ -9,10 +9,12 @@ apt-get purge nginx nginx-common nginx-full
 cd ./headshot 
 ./install.sh 
 
+# It's at /usr/local/nginx because it was installed manually, not through package manager 
 cd ./usr/local/nginx/sbin
-./nginx -v  # Figure out that it is nginx/1.15.0
+./nginx -v  # Check out that it is nginx/1.15.0
 
 ./nginx 
+netstat -tulpn | grep nginx
 
 curl localhost --header "Headhost: ls -al /tmp"
 # Find out that headshot works 
