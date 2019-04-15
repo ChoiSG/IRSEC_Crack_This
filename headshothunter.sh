@@ -1,8 +1,9 @@
 #!/bin/bash
 
 : ' 
+author: choi
 Name: Headshothunter.sh
-Description: Headshot is a malicious nginx module which hooks http_request and 
+Description: Headshot (https://github.com/RITRedteam/Headshot) is a malicious nginx module which hooks http_request and 
 checks for a specific header. When the attacker uses the header, nginx will 
 perform a RCE. For ex) curl localhost --header "Headshot: ls -alh /tmp" will perform
 a RCE.
@@ -15,6 +16,8 @@ If nginx is compiled with headshot, the configure would only contain --add-modul
 To find this out, do "nginx -V". 
 
 Also, if /etc/nginx and /usr/share/nginx does NOT exist, that is possible headshotted nginx.
+
+<Note> If nginx -v is 1.15.0, then it has a high chance of being headshot.
 
 '
 
