@@ -9,44 +9,45 @@ a RCE.
 
 Everything depends on the red team. 
 
-HOWEVER, as of right now, Headshot can be only made/installed through manual
-binary compiling. In this case, all of nginx files would be in 
-/usr/local/nginx instead of the typical /usr/share/nginx and /etc/nginx. 
+This is more of a guide, NOT a shell script. 
+
+If nginx is compiled with headshot, the configure would only contain --add-module=../
+To find this out, do "nginx -V". 
+
+Also, if /etc/nginx and /usr/share/nginx does NOT exist, that is possible headshotted nginx.
 
 '
 
 printf "\n\n"
 
-echo "'Curl'ing for headshot..."
-echo "It's hardcoded, don't believe this outcome..."
+echo "[+] 'Curl'ing for headshot..."
+echo "[+] It's hardcoded, don't believe this outcome..."
 curl -v --silent localhost --header "Headshot: whoami" 2>&1 | grep root
 if [ $? -eq 0 ]; then
     echo "[!!!] Headshot found [!!!] "
 fi
 printf "\n"
 
-echo "Checking for nginx.service..."
+echo "[+] Checking for nginx.service... if not found, possible headshot"
 service nginx status
 printf "\n"
 
-echo "Checking for /etc/nginx directory..."
+echo "[+] Checking for /etc/nginx directory... if not found, possible headshot"
 ls -alh /etc/nginx
 printf "\n"
 
-echo "Checking for /usr/local/nginx directory..." 
-ls -alh /usr/local/nginx
+echo "[+] Checking for nginx version, if it's 1.15.0 then possible headshot..." 
+/usr/local/nginx/sbin/nginx -v 
+printf "\n"
 
-if [ $? -eq 0 ]; then
-    printf "\n" 
-    echo "/usr/local/nginx found. Possibly headshotted nginx!"
-    echo "Copying all html, conf, and log files to /tmp/nginx_backup"
-    echo "Take a look around, take screenshots, and erase nginx"
-    echo "Re-install nginx with apt-get install nginx or yum install nginx"
-    cp -r /usr/local/nginx /tmp/nginx_backup
-    printf "\n"
-    echo "Copying done. reinstall nginx, copy back conf and .html files"
-else
-    echo "Headshot NOT found."
-fi
+echo "[+] Checking for nginx compiling information. If it only contains"
+echo "[+] configure arguments: --add-modules=../"
+echo "[+] Then it is 100% Headshot."
+/usr/local/nginx/sbin/nginx -V 
 
 printf "\n"
+echo "If it is headshot, backup everything"
+echo "cp -r /usr/local/nginx /tmp/nginx_backup"
+printf "\n"
+echo "Then reinstall nginx, and move back all conf and html files"
+echo "back to /etc/nginx and /usr/share/nginx/html"
