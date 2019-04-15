@@ -14,6 +14,8 @@ HOWEVER, as of right now, Headshot can be only made/installed through manual
 binary compiling. In this case, all of nginx files would be in 
 /usr/local/nginx instead of the typical /usr/share/nginx and /etc/nginx. 
 
+<Note> If nginx -v is 1.15.0, then it has a high chance of being headshot.
+
 '
 
 printf "\n\n"
