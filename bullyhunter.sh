@@ -33,7 +33,7 @@ sudo add-apt-repository universe
 sudo apt-get update
 
 # Setting up basic dependencies...
-for i in build-essential linux-headers-`uname -r` git python dwarfdump zip python-crypto python-pip; do
+for i in build-essential linux-headers-`uname -r` libelf-dev libelf-devel git python dwarfdump zip python-crypto python-pip; do
 	sudo apt-get install -y $i
 done
 
