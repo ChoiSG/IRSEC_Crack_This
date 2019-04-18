@@ -18,10 +18,12 @@ setupBACKUPUSER() {
 }
 
 setupTOOLS() { 
-    apt-get install -y terminator
-	apt-get install -y tree
-    apt-get install -y curl 
-    apt-get install -y vim 
+    yum install -y epel-release
+    yum --disablerepo=epel -y update  ca-certificates
+    yum install -y terminator
+	yum install -y tree
+    yum install -y curl 
+    yum install -y vim 
 	#apt-get install -y wireshark
 	cp ./.vimrc ~/.vimrc
     echo "setupTOOLS........ DONE" 
@@ -70,10 +72,10 @@ redteamFUN() {
 
 secureSSH() {
     #SSH
-    apt-get purge -y openssh-clients openssh-server
-    apt-get install -y openssh-clients openssh-server
+    yum remove -y openssh-clients openssh-server
+    yum install -y openssh-clients openssh-server
     
-    #setenforce 0
+    setenforce 0
     mv /etc/ssh/sshd_config ./fun/sshd_config_old.bak
     cp ./sshd_config /etc/ssh
 

@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# Firewall rule for Elastic server 
-# Includes SSH, HTTP, HTTPS, DNS, Elasticsearch (9200)
+# Firewall rule for DNS server 
+# 
 
 # Drop IPv6 stuffs
 ip6tables -F
@@ -31,8 +31,8 @@ iptables -A OUTPUT -p icmp --icmp-type 0 -j ACCEPT
 iptables -A OUTPUT -p icmp --icmp-type 8 -j ACCEPT 
 
 # DNS - [taylor] only  
-#iptables -A OUTPUT -p udp --dport 53 -j ACCEPT
-#iptables -A INPUT -p udp --sport 53 -j ACCEPT # Only for DEBUG
+iptables -A OUTPUT -p udp --dport 53 -j ACCEPT
+iptables -A INPUT -p udp --sport 53 -j ACCEPT # Only for DEBUG
 #iptables -A OUTPUT -p udp --dport 53 -d 10.0.0.0/24 -j ACCEPT # Accept DNS only from 10.0.0.0/24 network 
 
 # SSH 
@@ -40,8 +40,8 @@ iptables -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW,ESTABLISHED -j AC
 iptables -A OUTPUT -p tcp --sport 22 -m conntrack --ctstate ESTABLISHED -j ACCEPT
 
 # Inbound http 
-iptables -A INPUT -p tcp -m multiport --dports 80,443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
-iptables -A OUTPUT -p tcp -m multiport --sports 80,443 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+#iptables -A INPUT -p tcp -m multiport --dports 80,443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+#iptables -A OUTPUT -p tcp -m multiport --sports 80,443 -m conntrack --ctstate ESTABLISHED -j ACCEPT
 
 # Allow outbound http from this console; Use to download packages, visit google, etc.
 #iptables -A OUTPUT -p tcp -m multiport --dports 80,443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
