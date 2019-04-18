@@ -1,29 +1,30 @@
 #!/bin/sh
 
-# [[ TODO ]] 
-#   1. Ask about mail (25,110,143) ports and firewall rules 
-#   2. chattr log stuffs 
-#   3. Discuss with crack members and add more stuff 
+#	author: choi 
+#	description: Fivemin plan for ubuntu-cloud, HTTP server. 
+#	Made for IRSEC 2019
 #
-# Stuart's vpn is a nono
+#
+#
 
-# Script - TODO 
-# 1. Change credentials (add sudo user?) 
-# 2. Setup firewall 
-# 3. Change sudoers + sshd_config 
-# 4. Loot redteam's history 
+
+# 	TODO 
+#   1. chattr config stuffs 
 #
+
 
 setupBACKUPUSER() {
     useradd go
-    echo "Wkwkdaus!" | passwd --stdin go
+    echo "Tlqkfsus!" | passwd --stdin go
     usermod go -aG wheel go 
 }
 
-
-setupTERMINATOR() { 
+setupTOOLS() { 
     apt-get install -y terminator
-    echo "setupTERMINATOR........ DONE" 
+	apt-get install -y tree
+	apt-get install -y wireshark
+	cp ./.vimrc ~/.vimrc
+    echo "setupTOOLS........ DONE" 
 
 }
 
@@ -118,17 +119,46 @@ stopPLES() {
         initctl stop $cronname
         initctl stop anacron
         initctl stop atd
-
     fi
 
+	# Just in case
+	/etc/init.d/cron stop
+
     echo "stopPLES........ DONE"
+}
+
+backupWEB() { 
+	# if nginx --> Check for headshot. Follow the headshot plan.
+	if [ -n "$(command -v nginx)" ]; then 
+		hs=nginx -V 2>&1
+		if [ $(echo $hs | wc -c) -lt 500 ]; then 
+			printf "\nPossible HEADSHOT FOUND!!!\n"
+			touch "HEADSHOT_FOUND_FOLLOW_PROCEDURES"
+			printf "\n"
+		fi
+
+		tar -czvf "./nginx_backup.tar.gz" /etc/nginx/ /usr/share/nginx
+
+	elif [ -n "$(command -v apache2)" ]; then 
+		tar -czvf "./apache2_backup.tar.gz" /etc/apache2/ /var/www/html/	
+	fi
+
+ 	
+}
+
+revhunter() {
+	revhunter='if [ "$(tty)" == "not a tty" ]; then kill -9 $PPID; fi'
+	echo $revhunter > /bin/rev
+	chmod 755 /bin/rev
+	export PROMPT_COMMAND='/bin/rev' >> /etc/bash.bashrc
+	
 }
 
 # Need to fix this 
 #revhunter() {
 #    cat revhunter > /bin/rev
 #    chmod 755 /bin/rev
-#    echo "export PROMPT_COMMAND='/bin/rev'" >> /etc/bash.bashrc
+#    export PROMPT_COMMAND='/bin/rev' >> /etc/bash.bashrc
 #}
 
 # checkERROR
@@ -147,6 +177,9 @@ if [ $1 == "debug" ]; then
     rm *.error
     echo "Removing all error files........ DONE"
 
+	rm HEADSHOT_FOUND_FOLLOW_PROCEDURES
+	echo "Removing all misc files........ Done"
+
     iptables -F
     echo "Flushing iptables........ DONE"
     exit
@@ -160,6 +193,8 @@ stopPLES 2>>stopPLES.error
 redteamFUN 2>>redteamFUN.error
 secureSSH 2>>secureSSH.error
 secureSUDOER 2>>secureSUDOER.error
-setupTERMINATOR 2>>setupTERMINATOR.error
+setupTOOLS 2>>setupTOOLS.error
+#backupWEB 2>>backupWEB.error
+#revhunter 2>>revhunter.error
 setupFIREWALL 2>>setupFIREWALL.error
 
