@@ -1,24 +1,35 @@
-Finally talked with Nick and fixed(?) headshot. 
+#
+#   Documentation and plan for finding headshot and reporting for Incident Response.
+#   
+#
+#
+#
 
 https://github.com/ritredteam/headshot
-
-
 git clone https://github.com/ritredteam/headshot
-apt-get purge nginx nginx-common nginx-full
 
-cd ./headshot 
-./install.sh 
+Plan
+=========================================================
 
-# It's at /usr/local/nginx because it was installed manually, not through package manager 
-cd ./usr/local/nginx/sbin
-./nginx -v  # Check out that it is nginx/1.15.0
+1. command -v nginx
+2. If nginx is found... 
+3. nginx -V 
+4. Take a close look at the configuration arguments.
 
-./nginx 
-netstat -tulpn | grep nginx
+Backup all files before removing and re-installing nginx 
+5. tar -czvf "/tmp/nginx_backup.tar.gz" /etc/nginx/ /usr/share/nginx/ /usr/lib/nginx/
 
-curl localhost --header "Headhost: ls -al /tmp"
-# Find out that headshot works 
+6. apt-get purge nginx nginx-common nginx-full 
+7. apt-get install nginx 
 
-# Now try to find a way to defend against headshot, or, to safely re-install nginx. 
-# Get a clean distro snapshot, install nginx, make some changes, backup files, reinstall nginx. 
-# See if everything works correctly. 
+8. Move all backup files to corresponding places 
+
+Original nginx ./configure arguments
+==========================================================
+configure arguments: --with-cc-opt='-g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2' --with-ld-opt='-Wl,-Bsymbolic-functions -Wl,-z,relro' --prefix=/usr/share/nginx --conf-path=/etc/nginx/nginx.conf --http-log-path=/var/log/nginx/access.log --error-log-path=/var/log/nginx/error.log --lock-path=/var/lock/nginx.lock --pid-path=/run/nginx.pid --http-client-body-temp-path=/var/lib/nginx/body --http-fastcgi-temp-path=/var/lib/nginx/fastcgi --http-proxy-temp-path=/var/lib/nginx/proxy --http-scgi-temp-path=/var/lib/nginx/scgi --http-uwsgi-temp-path=/var/lib/nginx/uwsgi --with-debug --with-pcre-jit --with-ipv6 --with-http_ssl_module --with-http_stub_status_module --with-http_realip_module --with-http_addition_module --with-http_dav_module --with-http_geoip_module --with-http_gzip_static_module --with-http_image_filter_module --with-http_spdy_module --with-http_sub_module --with-http_xslt_module --with-mail --with-mail_ssl_module
+
+
+Backdoored nginx ./configure arguments 
+=========================================================
+configure arguments: --add-module=../ --user=root --with-cc-opt='-g -O2 -fstack-protector --param=ssp-buffer-size=4 -Wformat -Werror=format-security -D_FORTIFY_SOURCE=2' --with-ld-opt='-Wl,-Bsymbolic-functions -Wl,-z,relro' --prefix=/usr/share/nginx --conf-path=/etc/nginx/nginx.conf --http-log-path=/var/log/nginx/access.log --error-log-path=/var/log/nginx/error.log --lock-path=/var/lock/nginx.lock --pid-path=/run/nginx.pid --http-client-body-temp-path=/var/lib/nginx/body --http-fastcgi-temp-path=/var/lib/nginx/fastcgi --http-proxy-temp-path=/var/lib/nginx/proxy --http-scgi-temp-path=/var/lib/nginx/scgi --http-uwsgi-temp-path=/var/lib/nginx/uwsgi --with-debug --with-pcre-jit --with-ipv6 --with-http_ssl_module --with-http_stub_status_module --with-http_realip_module --with-http_addition_module --with-http_dav_module --with-http_geoip_module --with-http_gzip_static_module --with-http_image_filter_module --with-http_sub_module --with-http_xslt_module --with-mail --with-mail_ssl_module
+

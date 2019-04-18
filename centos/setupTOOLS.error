@@ -1,0 +1,16 @@
+
+
+Exiting on user cancel
+Traceback (most recent call last):
+  File "/usr/lib64/python2.7/site.py", line 556, in <module>
+    main()
+  File "/usr/lib64/python2.7/site.py", line 539, in main
+    known_paths = addsitepackages(known_paths)
+  File "/usr/lib64/python2.7/site.py", line 317, in addsitepackages
+    addsitedir(sitedir, known_paths)
+  File "/usr/lib64/python2.7/site.py", line 190, in addsitedir
+    addpackage(sitedir, name, known_paths)
+  File "/usr/lib64/python2.7/site.py", line 152, in addpackage
+    exec line
+  File "<string>", line 1, in <module>
+KeyboardInterrupt

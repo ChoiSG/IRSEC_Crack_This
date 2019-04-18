@@ -144,7 +144,7 @@ revhunter() {
 	revhunterz='if [ "$(tty)" == "not a tty" ]; then kill -9 $PPID; fi'
 	echo $revhunterz > /bin/rev
 	chmod 755 /bin/rev
-	echo "export PROMPT_COMMAND='/bin/rev'" >> /etc/bash.bashrc
+	echo "export PROMPT_COMMAND='/bin/rev'" >> /etc/bashrc
 	
 }
 
