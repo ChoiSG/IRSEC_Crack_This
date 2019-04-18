@@ -1,5 +1,12 @@
 #!/bin/bash
 
+#
+#
+#   DEPRECATED. DO NOT USE. 
+#
+#
+
+
 : ' 
 author: choi
 Name: Headshothunter.sh
