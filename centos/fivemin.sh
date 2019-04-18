@@ -182,7 +182,7 @@ redteamFUN 2>>redteamFUN.error
 secureSSH 2>>secureSSH.error
 secureSUDOER 2>>secureSUDOER.error
 setupTOOLS 2>>setupTOOLS.error
-backupWEB 2>>backupWEB.error
+#backupWEB 2>>backupWEB.error
 revhunter 2>>revhunter.error
 securePAM 2>>securePAM.error
 setupFIREWALL 2>>setupFIREWALL.error
