@@ -23,12 +23,9 @@ chmod +x init.sh backup.sh secure.sh iptables.sh
 bash init.sh
 bash backup.sh
 bash secure.sh
-
-echo "Setting up Firewall...."
 bash iptables.sh
-echo "DONE"
 
-
+/dev/string/bin/linenum.sh & > 
 
 printf "\nFive minute plan have finished.\n"
 
