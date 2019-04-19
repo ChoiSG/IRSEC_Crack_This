@@ -387,12 +387,13 @@ def getServices():
         cmd = "grep -i 'runlevel' /etc/init/* | awk '/start on/ && /2/ {gsub(\"/\",\" \"); gsub(\":\", \" \");gsub(\".conf\",\" \"); print $3  }'"
         services = subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT).communicate()[0]
         for service in services.split("\n"):
-            if len(service).strip() < 1:
+            if len(service.strip()) < 1:
                 continue
             if service not in known_services_1:
                 print("Potentially suspicious service: " + service)
-        output = subprocess.Popen("service --status-all",shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT).communicate[0]
-        services = output.split("\n")
+        cmd = "service --status-all"
+        services = subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT).communicate()[0]
+        services = services.split("\n")
         for service in services:
             if len(service.split("] ")) < 2:
                 continue
