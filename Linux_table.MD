@@ -16,7 +16,7 @@
 | ***This doesn't make sense?!***| | | 
 | Rootkit | `lsmod`,`modinfo name`,`rmmod`,`nano /etc/modprobe.d/blacklist.conf`,`reboot`  | N |
 | ***Privesc*** | | |
-| Suid Binaries | `find /bin -perm /6000` | N |
+| Suid Binaries | `find / -r-perm /6000` | N |
 | /etc/sudoers | Look at it, pretty much no NOPASSWD, no one other than root, %admin, %sudo/%wheel  | N | 
 
 Service Specific Backdoors:
