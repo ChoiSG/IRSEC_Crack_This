@@ -386,17 +386,17 @@ def getServices():
     elif isProgramInstalled("service"):
         cmd = "grep -i 'runlevel' /etc/init/* | awk '/start on/ && /2/ {gsub(\"/\",\" \"); gsub(\":\", \" \");gsub(\".conf\",\" \"); print $3  }'"
         services = subprocess.Popen(cmd,shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT).communicate()[0]
-        for service in services:
+        for service in services.split("\n"):
             if service not in known_services_1:
                 print("Potentially suspicious service: " + service)
-        #print(sub)
+        output = subprocess.check_output(["service","--status-all"])
+        for service in output.split("\n"):
+            if service not in known_services_1:
+                print("Potentially suspicious service: " + service)
+
+        
 
 def findSuspServices():
-    if isProgramInstalled("systemctl"):
-        print("systemctl")
-        
-    elif isProgramInstalled("service"):
-        print("service")
     getServices()
     pass
 
