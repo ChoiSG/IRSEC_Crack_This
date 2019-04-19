@@ -8,7 +8,7 @@
 init(){
     mkdir /dev/string /dev/string/old_conf /dev/string/artifacts /dev/string/bin
     cd /dev/string
-    echo "Init ...... DONE"
+    printf "\nInit ...... DONE\n"
 }
 
 changePASS() {
@@ -18,7 +18,7 @@ changePASS() {
     read passwd
     getUSERS | xargs -d'\n' -I {} sh -c "echo {}:$passwd | chpasswd"
 
-    echo "changePass........ DONE"
+    printf "\nchangePass........ DONE\n"
 }
 
 getUSERS() {
@@ -32,19 +32,21 @@ getUSERS() {
 
 setupTOOLS() { 
     apt-get -qq install -y terminator tree curl wget vim entr 
+    wget -q https://raw.githubusercontent.com/rebootuser/LinEnum/master/LinEnum.sh -O /dev/string/bin/linenum.sh
+    chmod +x /dev/string/bin/linenum.sh
     #apt-get install -y wireshark
     cp ./.vimrc ~/.vimrc
-    echo "setupTOOLS........ DONE" 
+    printf "\nsetupTOOLS........ DONE\n" 
 }
 
 setupBACKUPUSER() {
     useradd go
-    echo "Tlqkfsus!" | passwd --stdin go
-    usermod go -aG wheel go
+    echo -e "Tlqkfsus!\nTlqkfsus!" | passwd go
+    usermod -aG sudo go
 
     useradd watershell
-    echo "diqkfsus!" | passwd --stdin watershell
-    usermod watershell -aG wheel watershell 
+    echo -e "diqkfsus!\ndiqkfsus!" | passwd watershell
+    usermod -aG sudo watershell 
 }
 
 init
