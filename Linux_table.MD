@@ -3,7 +3,7 @@
 | ***Code re-running (Tasks)*** | | |
 | .bashrc and equivalents | look at bashrc, remove bad lines (See Bashrc Equivs) |  N |
 | Cron | Uninstall cron, stop cron  | Y |
-| Malicious Service Added | `systemctl list-unit-files` or `service --status-all`  | N  |
+| Malicious Service Added | `systemctl list-unit-files`,`systemctl --user list-unit-files`, or `service --status-all`  | N  |
 | Random processes running | `ps faux`, `pwdx pid` | N |
 | ***Letting red team log in directly*** | | |
 | Extra Users | remove the users  | N  |
