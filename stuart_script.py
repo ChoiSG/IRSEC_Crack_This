@@ -3,11 +3,12 @@ import subprocess
 import re
 import os
 
-known_services = {"proc-sys-fs-binfmt_misc.automount",
+known_services = {
+"proc-sys-fs-binfmt_misc.automount",
 "dev-hugepages.mount",
 "dev-mqueue.mount",
 "proc-sys-fs-binfmt_misc.mount",
-"run-vmblock\x2dfuse.mount",
+"run-vmblock\\x2dfuse.mount",
 "sys-fs-fuse-connections.mount",
 "sys-kernel-config.mount",
 "sys-kernel-debug.mount",
@@ -128,7 +129,7 @@ known_services = {"proc-sys-fs-binfmt_misc.automount",
 "rsyslog.service",
 "rtkit-daemon.service",
 "saned.service",
-"saned@.serviceindirect",
+"saned@.service",
 "sendsigs.service",
 "serial-getty@.service",
 "setvtrgb.service",
@@ -208,7 +209,7 @@ known_services = {"proc-sys-fs-binfmt_misc.automount",
 "usb_modeswitch@.service",
 "usbmuxd.service",
 "user@.service",
-"uuidd.serviceindirect",
+"uuidd.service",
 "vgauth.service",
 "wacom-inputattach@.service",
 "whoopsie.service",
@@ -364,7 +365,14 @@ def getServices():
             line = re.sub(" +"," ",line)
             splitLine = line.split(" ")
             if splitLine[0] not in known_services:
-                print("Potentially suspicious service: " + line)
+                    test2 = splitLine[0]
+                    if ".target" in splitLine[0]:
+                        test2 = splitLine[0].replace(".target",".service")
+                    elif ".service" in splitLine[0]:
+                        test2 = splitLine[0].replace(".service",".target")
+                    if test2 in known_services:
+                        continue
+                    print("Potentially suspicious service: " + line)
 def findSuspServices():
     if isProgramInstalled("systemctl"):
         print("systemctl")
