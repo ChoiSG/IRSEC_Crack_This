@@ -24,6 +24,7 @@ Service Specific Backdoors:
 | Nginx | Headshot | `nginx -V` looks for modules, reinstall it. |
 | MySql | @choi | @choi | 
 | SSH | Backdoored binary | Reinstall ssh |
+| Dovecot | Backdoored auth script | Remove any non-package binaries |
 
 Not sure where to put this:
 Spy on any new processes:
