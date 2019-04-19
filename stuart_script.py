@@ -361,6 +361,7 @@ def getServices():
     print("Scanning for suspicious services...")
     if isProgramInstalled("systemctl"):
         ps = subprocess.check_output(['systemctl','list-unit-files'])
+        #Todo systemctl --user list-unit-files
         lines = ps.split("\n")[1:-2]
         for line in lines:
             line = line.strip()
@@ -377,17 +378,17 @@ def getServices():
                     if test2 in known_services:
                         continue
                     print("Potentially suspicious service: " + line)
+    elif isProgramInstalled("service"):
+        services = subprocess.check_output([""])
+        print(sub)
+        
 def findSuspServices():
     if isProgramInstalled("systemctl"):
         print("systemctl")
         
     elif isProgramInstalled("service"):
-<<<<<<< HEAD
-	print("service")
-=======
         print("service")
     getServices()
->>>>>>> 1b72b70a3423ef34dd530361af970070835dc33c
     pass
 
 findSuspProc()
