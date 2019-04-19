@@ -380,8 +380,8 @@ def getServices():
                     print("Potentially suspicious service: " + line)
     elif isProgramInstalled("service"):
         services = subprocess.check_output([""])
-        print(sub)
-        
+        #print(sub)
+
 def findSuspServices():
     if isProgramInstalled("systemctl"):
         print("systemctl")
