@@ -1,13 +1,13 @@
 | Method of Hiding | Method of fixing | Five Min Plan Fixes?  |
 |----------|------------------------|---|
 | ***Code re-running (Tasks)*** | | |
-| .bashrc and equivalents | look at bashrc, remove bad lines (See Bashrc Equivs) |  N |
+| .bashrc       | look at bashrc, remove bad lines |  N |
 | Cron | Uninstall cron, stop cron  | Y |
-| Malicious Service Added | `systemctl list-unit-files`,`systemctl --user list-unit-files`, or `service --status-all`  | N  |
+| Malicious Service Added | `systemctl list-unit-files` or `service --status-all`  | N  |
 | Random processes running | `ps faux`, `pwdx pid` | N |
 | ***Letting red team log in directly*** | | |
 | Extra Users | remove the users  | N  |
-| Pam Backdoor | Fix pam config? Set UsePam: No in sshd_config, Overwrite common-auth with a clean common-auth in this repo  | Y  |
+| Pam Backdoor | Fix pam config? Set UsePam: No in sshd_config  | N  |
 | NoLogin | make sure `nologin`,`false` isn't a shell| N |
 | ***Ways to connect without logging in*** | | |
 | reverse shell | iptables | Y  |
@@ -21,13 +21,9 @@ Service Specific Backdoors:
 | Service | Method | How to fix  |
 |----------|------------------------|----------|
 | Web | webshell | grep for system/exec in /var/www. If the file seems susp, remove it. |
-| Nginx | Headshot | `nginx -V` looks for modules, reinstall it. |
+| Nginx | Headshot | `nginx -V` looks for modules. If the modules include "--add-module=../" and/or "--user=root", that means nginx is headshot-backdoored. Backup all configuration files using "tar -czvf "/tmp/nginx_backup.tar.gz" /etc/nginx/ /usr/share/nginx/ /usr/lib/nginx/" and reinstall nginx. |
 | MySql | @choi | @choi | 
 | SSH | Backdoored binary | Reinstall ssh |
-| Dovecot | Backdoored auth script | Remove any non-package binaries |
-
-Bashrc Equivalents:
-`~/.bashrc`,` /etc/profile`,`/etc/bashrc`,`/etc/bash.bashrc`,`/etc/.bashrc`,`~/etc/profile`
 
 Not sure where to put this:
 Spy on any new processes:
