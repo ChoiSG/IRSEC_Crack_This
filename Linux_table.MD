@@ -1,13 +1,13 @@
 | Method of Hiding | Method of fixing | Five Min Plan Fixes?  |
 |----------|------------------------|---|
 | ***Code re-running (Tasks)*** | | |
-| .bashrc       | look at bashrc, remove bad lines |  N |
+| .bashrc       | look at bashrc, remove bad lines. Overwrite with clean_files/.bashrc |  N |
 | Cron | Uninstall cron, stop cron  | Y |
 | Malicious Service Added | `systemctl list-unit-files` or `service --status-all`  | N  |
 | Random processes running | `ps faux`, `pwdx pid` | N |
 | ***Letting red team log in directly*** | | |
 | Extra Users | remove the users  | N  |
-| Pam Backdoor | Fix pam config? Set UsePam: No in sshd_config  | N  |
+| Pam Backdoor | Fix pam config? Set UsePam: No in sshd_config. Overwrite /etc/pam.d/common-auth with clean_files/common-auth  | N  |
 | NoLogin | make sure `nologin`,`false` isn't a shell| N |
 | ***Ways to connect without logging in*** | | |
 | reverse shell | iptables | Y  |
@@ -17,7 +17,7 @@
 | Rootkit | `lsmod`,`modinfo name`,`rmmod`,`nano /etc/modprobe.d/blacklist.conf`,`reboot`  | N |
 | ***Privesc*** | | |
 | Suid Binaries | `find / -perm /6000` | N |
-| /etc/sudoers | Look at it, pretty much no NOPASSWD, no one other than root, %admin, %sudo/%wheel  | N | 
+| /etc/sudoers | Look at it, pretty much no NOPASSWD, no one other than root, %admin, %sudo/%wheel. Overwrite /etc/sudoers with clean_files/sudoers  | N | 
 
 Service Specific Backdoors:
 
@@ -25,7 +25,7 @@ Service Specific Backdoors:
 |----------|------------------------|----------|
 | Web | webshell | grep for system/exec in /var/www. If the file seems susp, remove it. |
 | Nginx | Headshot | `nginx -V` looks for modules. If the modules include "--add-module=../" and/or "--user=root", that means nginx is headshot-backdoored. Backup all configuration files using "tar -czvf "/tmp/nginx_backup.tar.gz" /etc/nginx/ /usr/share/nginx/ /usr/lib/nginx/" and reinstall nginx. |
-| MySql | @choi | @choi | 
+| MySql | @choi Coming soon (tm) | @choi | 
 | SSH | Backdoored binary | Reinstall ssh |
 
 Not sure where to put this:
