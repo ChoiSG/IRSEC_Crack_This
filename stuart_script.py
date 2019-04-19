@@ -408,6 +408,5 @@ def findSuspServices():
     pass
 
 findSuspProc()
+print("\n")
 findSuspServices()
-#import code
-# code.interact(local=locals())
