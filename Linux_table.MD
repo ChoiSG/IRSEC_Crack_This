@@ -12,6 +12,15 @@
 | ***Ways to connect without logging in*** | | |
 | reverse shell | iptables | Y  |
 | Service Specific Backdoors (headshot, web shell) | See (Service Specific)  | N |
-| Watershell | `lsof | grep -i raw` | N |
+| Watershell | `lsof \| grep -i raw`, `kill -9 pid` | N |
 | ***This doesn't make sense?!***| | | 
 | Rootkit | `lsmod`,`modinfo name`,`rmmod`,`nano /etc/modprobe.d/blacklist.conf`,`reboot`  | N |
+
+Service Specific Backdoors:
+
+| Service | Method | How to fix  |
+|----------|------------------------|----------|
+| Web | webshell | grep for system/exec in /var/www. If the file seems susp, remove it. |
+| Nginx | Headshot | `nginx -V` looks for modules, reinstall it. |
+| MySql | @choi | @choi | 
+| SSH | Backdoored binary | Reinstall ssh |
