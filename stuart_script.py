@@ -378,7 +378,7 @@ def findSuspServices():
         print("systemctl")
         
     elif isProgramInstalled("service"):
-        print("service")
+	print("service")
     pass
 
 findSuspProc()
