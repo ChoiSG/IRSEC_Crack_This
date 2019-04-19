@@ -17,6 +17,8 @@
 | Rootkit | `lsmod`,`modinfo name`,`rmmod`,`nano /etc/modprobe.d/blacklist.conf`,`reboot`  | N |
 | ***Privesc*** | | |
 | Suid Binaries | `find /bin -perm /6000` | N |
+
+
 Service Specific Backdoors:
 
 | Service | Method | How to fix  |
