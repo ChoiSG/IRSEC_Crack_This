@@ -1,14 +1,23 @@
 schtasks /delete /tn *
-Services change logon /disable
-netsh advfirewall firewall set rule group="File and Printer Sharing" new enable=No
 
+
+
+Services change logon /disable
+#if box bluescreens comment this line out ^^^
+
+
+
+netsh advfirewall firewall set rule group="File and Printer Sharing" new enable=No
+del c:/windows/system32/sethc.exe
 dir /B /S \windows\system32 > 32.txt
 dir /B /S \*.exe > exes.txt
 net share > shares.txt
 net user > users.txt
 net start > svcs.txt
+auditpol /set /category:* /success:enable
+auditpol /set /category:* /failure:enable
 
-get-localuser | where-object {$.name -notlike "Administrator"} | Disable-LocalUser
+get-localuser | where-object {$.name -notlike "principal"} | Disable-LocalUser
 
 
 Remove-NetFirewallRule -All
@@ -19,9 +28,9 @@ Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
 Set-NetFirewallProfile -All -DefaultInboundAction Block -DefaultOutboundAction Block
 #Sets the profiles to be on and block by default
 
-New-NetFirewallRule -DisplayName "Allow InBound Port 53" -Direction Inbound -LocalPort 53 -Protocol UDP -Action Allow
-New-NetFirewallRule -DisplayName "Allow Outbound Port 53" -Direction Outbound -RemotePort 53 -Protocol UDP -Action Allow
-#Allows Dns coming to our port 53 and dns Going only to their port 53
+netsh advfirewall firewall add rule name="Allow from AD" dir=in action=allow protocol=ANY remoteip=10.2.x.1
+netsh advfirewall firewall add rule name="Allow to AD" dir=out action=allow protocol=ANY remoteip=10.2.x.1
+#everything to AD
 
 New-NetFirewallRule -DisplayName "Allow Inbound ICMP" -Direction Inbound -Protocol ICMPv4 -Action Allow
 New-NetFirewallRule -DisplayName "Allow Outbound ICMP" -Direction Outbound -Protocol ICMPv4 -Action Allow
