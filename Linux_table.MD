@@ -7,7 +7,7 @@
 | Random processes running | `ps faux`, `pwdx pid` | N |
 | ***Letting red team log in directly*** | | |
 | Extra Users | remove the users  | N  |
-| Pam Backdoor | Fix pam config? Set UsePam: No in sshd_config  | N  |
+| Pam Backdoor | Fix pam config? Set UsePam: No in sshd_config, Overwrite common-auth with a clean common-auth in this repo  | Y  |
 | NoLogin | make sure `nologin`,`false` isn't a shell| N |
 | ***Ways to connect without logging in*** | | |
 | reverse shell | iptables | Y  |
