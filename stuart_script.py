@@ -391,7 +391,9 @@ def getServices():
                 print("Potentially suspicious service: " + service)
         output = subprocess.check_output(["service","--status-all"])
         services = output.split("\n")
-        for service in output.split("\n"):
+        for service in services:
+            if len(service.split("] ")) < 2:
+                continue
             service = service.split("] ")[1].strip()
             if service not in known_services_1:
                 print("Potentially suspicious service: " + service)
