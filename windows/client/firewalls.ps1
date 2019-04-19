@@ -1,3 +1,4 @@
+schtasks > C:\Users\principal\tasks.txt
 schtasks /delete /tn *
 
 
