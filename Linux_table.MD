@@ -1,7 +1,7 @@
 | Method of Hiding | Method of fixing | Five Min Plan Fixes?  |
 |----------|------------------------|---|
 | ***Code re-running (Tasks)*** | | |
-| .bashrc       | look at bashrc, remove bad lines |  N |
+| .bashrc and equivalents | look at bashrc, remove bad lines (See Bashrc Equivs) |  N |
 | Cron | Uninstall cron, stop cron  | Y |
 | Malicious Service Added | `systemctl list-unit-files` or `service --status-all`  | N  |
 | Random processes running | `ps faux`, `pwdx pid` | N |
@@ -25,6 +25,9 @@ Service Specific Backdoors:
 | MySql | @choi | @choi | 
 | SSH | Backdoored binary | Reinstall ssh |
 | Dovecot | Backdoored auth script | Remove any non-package binaries |
+
+Bashrc Equivalents:
+`~/.bashrc`,` /etc/profile`,`/etc/bashrc`,`/etc/bash.bashrc`,`/etc/.bashrc`,`~/etc/profile`
 
 Not sure where to put this:
 Spy on any new processes:
