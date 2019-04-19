@@ -10,6 +10,14 @@
 #   1. chattr stuffs 
 #
 
+init(){
+	mkdir /dev/string 
+	cd /dev/string 
+	mkdir ./old_conf
+	mkdir ./artifacts
+	mkdir ./bin
+	echo "Init......... DONE. Current directory is /dev/string" 
+}
 
 setupBACKUPUSER() {
     useradd go
@@ -17,11 +25,19 @@ setupBACKUPUSER() {
     usermod go -aG wheel go 
 }
 
+grabCONFs(){
+	cd /dev/string/old_conf
+	cp ~/.profile ~/.bashrc ~/.vimrc ~/.bash_profile /etc/ssh/sshd_config /etc/sudoers /etc/pam.d/common-auth .
+	
+	for $filez in *; do 
+		mv $filez $filez.old
+	done
+
+	cd /dev/string
+}
+
 setupTOOLS() { 
-    apt-get install -y terminator
-	apt-get install -y tree
-    apt-get install -y curl 
-    apt-get install -y vim 
+    apt-get -qq install -y terminator tree curl wget vim entr 
 	#apt-get install -y wireshark
 	cp ./.vimrc ~/.vimrc
     echo "setupTOOLS........ DONE" 
@@ -136,6 +152,14 @@ backupWEB() {
 	elif [ -n "$(command -v apache2)" ]; then 
 		tar -czvf "./apache2_backup.tar.gz" /etc/apache2/ /var/www/html/
 	fi
+}
+
+backupBIN() {
+	cd /dev/string/bin
+	cp /usr/bin/apt .
+	cp /usr/bin/apt-get .
+	wget https://busybox.net/downloads/binaries/1.30.0-i686/busybox	
+	cd ..
 }
 
 revhunter() {
