@@ -2,20 +2,18 @@
 
 secureSSH() {
     #SSH
-    apt-get purge -y openssh-clients openssh-server
-    apt-get install -y openssh-clients openssh-server
+    apt-get -qq purge -y openssh-server
+    apt-get -qq install -y openssh-server
     
     #setenforce 0
-    mv /etc/ssh/sshd_config ./fun/sshd_config_old.bak
-    cp ./sshd_config /etc/ssh
+    cp ./sshd_config /etc/ssh/sshd_config
 
     echo "secureSSH........ DONE"
 }
 
 secureSUDOER() {
-    cp /etc/sudoers ./fun/sudoers_old.bak
     mv /etc/sudoers /etc/sudoers.nono
-    cp ./sudoers /etc/
+    cp ./sudoers /etc/sudoers
     chmod 400 /etc/sudoers
 
     echo "secureSUDOER........ DONE"
@@ -48,7 +46,7 @@ stopPLES() {
     fi
 
     # Just in case
-    /etc/init.d/cron stop
+    /etc/init.d/cron stop 2>/dev/null
 
     echo "stopPLES........ DONE"
 }

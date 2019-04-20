@@ -29,8 +29,8 @@ Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled True
 Set-NetFirewallProfile -All -DefaultInboundAction Block -DefaultOutboundAction Block
 #Sets the profiles to be on and block by default
 
-netsh advfirewall firewall add rule name="Allow from AD" dir=in action=allow protocol=ANY remoteip=10.2.x.1
-netsh advfirewall firewall add rule name="Allow to AD" dir=out action=allow protocol=ANY remoteip=10.2.x.1
+netsh advfirewall firewall add rule name="Allow from AD" dir=in action=allow protocol=ANY -remoteaddress 10.2.x.1
+netsh advfirewall firewall add rule name="Allow to AD" dir=out action=allow protocol=ANY -remoteaddress 10.2.x.1
 #everything to AD
 
 New-NetFirewallRule -DisplayName "Allow Inbound ICMP" -Direction Inbound -Protocol ICMPv4 -Action Allow
