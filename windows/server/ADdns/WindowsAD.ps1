@@ -55,6 +55,9 @@ nfw -DisplayName "LDAP UDP Out" -Direction Outbound -Action Allow -Protocol UDP 
 #nfw -DisplayName "LDAP TCP In" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 389,636,3268,3269 -Program $lsass -remoteaddress 10.2.x.x
 #nfw -DisplayName "LDAP TCP Out" -Direction Outbound -Action Allow -Protocol TCP -LocalPort 389,636,3268,3269 -Program $lsass -remoteaddress 10.2.x.x
 
+Nfw -DisplayName "Allow Inbound ICMP" -Direction Inbound -Protocol ICMPv4 -Action Allow
+Nfw -DisplayName "Allow Outbound ICMP" -Direction Outbound -Protocol ICMPv4 -Action Allow
+
 #nfw -DisplayName "Kerberos TCP In" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 88,464 -Program $lsass -remoteaddress 10.2.x.x
 #nfw -DisplayName "Kerberos TCP Out" -Direction Outbound -Action Allow -Protocol TCP -LocalPort 88,464 -program $lsass -remoteaddress 10.2.x.x
 #nfw -DisplayName "Kerberos UDP In" -Direction Inbound -Action Allow -Protocol UDP -LocalPort 88,464 -program $lsass -remoteaddress 10.2.x.x
