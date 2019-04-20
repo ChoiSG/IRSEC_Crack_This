@@ -4,10 +4,10 @@ backupWEB() {
     # if nginx --> Check for headshot. Follow the headshot plan.
     if [ -n "$(command -v nginx)" ]; then 
         hs=`nginx -V 2>&1`
-        tar -czf "/dev/string/nginx_backup.tar.gz" /etc/nginx/ /usr/share/nginx/ /usr/lib/nginx/
+        tar -czf "/dev/string/nginx_backup.tar.gz" /etc/nginx /usr/share/nginx /usr/lib/nginx
 
     elif [ -n "$(command -v apache2)" ]; then 
-        tar -czf "/dev/string/apache2_backup.tar.gz" /etc/apache2/ /var/www/html/
+        tar -czf "/dev/string/apache2_backup.tar.gz" /etc/apache2 /var/www/html
     fi
 
     printf "\nBackup WEB ........ DONE\n"

@@ -20,13 +20,20 @@ echo "========================================="
 
 chmod +x init.sh backup.sh secure.sh iptables.sh
 
+iptables -F 
+chattr -i /etc/shadow
+
 bash init.sh
 bash backup.sh
 bash secure.sh
 bash iptables.sh
 printf "\nEnabling my iptables ........ DONE\n"
 
+chattr +i /etc/shadow
+chattr +i /etc/sudoers
+
 printf "\nRemember /dev/string/bin/linenum.sh !\n"
+printf "\nRestart sshd and nginx/apache2 when you are done !!!\n"
 #/dev/string/bin/linenum.sh & > 
 
 printf "\nFive minute plan have finished.\n"
