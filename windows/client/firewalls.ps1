@@ -7,7 +7,7 @@ Services change logon /disable
 #if box bluescreens comment this line out ^^^
 
 
-
+reg add "HKLM\Software\Policies\Microsoft\Windows NT\Terminal Services" /v fDenyTSConnections /t REG_DWORD /d 1 /f
 netsh advfirewall firewall set rule group="File and Printer Sharing" new enable=No
 del c:/windows/system32/sethc.exe
 dir /B /S \windows\system32 > 32.txt
