@@ -1,0 +1,18 @@
+# If a server has mysql running (ex. HTTP server with LAMP stack), there is a chance
+# there might be trickshot (https://github.com/RITRedteam/Trickshot/) running. 
+# 
+# Use the following to find trickshot! 
+
+1. See for suspicious mysql function 
+mysql -u root -p<password> -e"select * from mysql.func" 
+    >> if there is tg.so, that's trickshot. 
+
+
+2. See for suspicous plugin with specific string 
+strings /usr/lib/mysql/plugin/* | grep sys_exec_deinit
+    >> If sys_exec_deinit is found, that plugin is the trickshot plugin.
+
+3. If Trickshot EXISTS 
+mysql -u root -p<password> -e"drop function <function_name>" 
+
+4. Also, delete the plugin file (<trickshot>.so) in /usr/lib/mysql/plugin as well.

@@ -24,8 +24,10 @@ bash init.sh
 bash backup.sh
 bash secure.sh
 bash iptables.sh
+printf "\nEnabling my iptables ........ DONE\n"
 
-/dev/string/bin/linenum.sh & > 
+printf "\nRemember /dev/string/bin/linenum.sh !\n"
+#/dev/string/bin/linenum.sh & > 
 
 printf "\nFive minute plan have finished.\n"
 

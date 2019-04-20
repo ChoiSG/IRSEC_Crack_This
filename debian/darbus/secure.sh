@@ -8,7 +8,7 @@ secureSSH() {
     #setenforce 0
     cp ./sshd_config /etc/ssh/sshd_config
 
-    echo "secureSSH........ DONE"
+    printf "\nsecureSSH........ DONE\n"
 }
 
 secureSUDOER() {
@@ -16,12 +16,10 @@ secureSUDOER() {
     cp ./sudoers /etc/sudoers
     chmod 400 /etc/sudoers
 
-    echo "secureSUDOER........ DONE"
+    printf "\nsecureSUDOER........ DONE\n"
 }
 
 stopPLES() {
-    echo "Disabling Cron..."
-    
     if [ -n "$(command -v cron)" ]; then 
         cronname="cron"
     else
@@ -48,7 +46,7 @@ stopPLES() {
     # Just in case
     /etc/init.d/cron stop 2>/dev/null
 
-    echo "stopPLES........ DONE"
+    echo "Disabling Cron........ DONE"
 }
 
 securePAM(){

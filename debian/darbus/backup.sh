@@ -24,8 +24,9 @@ backupBIN() {
 
 grabCONFs(){
     cp ~/.profile ~/.bashrc ~/.vimrc ~/.bash_profile /etc/ssh/sshd_config /etc/sudoers /etc/pam.d/common-auth ~/.bash_history ~/.ssh/* ~/.lesshst /dev/string/old_conf/ 2>/dev/null
-    
-    for filez in *; do 
+
+        
+    for filez in /dev/string/old_conf/*; do 
         mv $filez $filez.old
     done
 
