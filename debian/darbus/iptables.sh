@@ -9,11 +9,15 @@ ip6tables -P INPUT DROP
 ip6tables -P OUTPUT DROP
 ip6tables -A INPUT -j DROP
 ip6tables -A OUTPUT -j DROP
+ip6tables -t mangle -P INPUT DROP
+ip6tables -t mangle -P OUTPUT DROP
 
 # Flush everything before beginning
 
 iptables -F 
 iptables -X 
+iptables -t mangle -F
+iptables -t mangle -X
 
 # Loopback
 iptables -A INPUT -i lo -j ACCEPT
@@ -41,7 +45,7 @@ iptables -A OUTPUT -p tcp --sport 22 -m conntrack --ctstate ESTABLISHED -j ACCEP
 
 # Inbound http 
 iptables -A INPUT -p tcp -m multiport --dports 80,443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
-iptables -A OUTPUT -p tcp -m multiport --sports 80,443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -p tcp -m multiport --sports 80,443 -m conntrack --ctstate ESTABLISHED -j ACCEPT
 
 # Allow outbound http from this console; Use to download packages, visit google, etc.
 #iptables -A OUTPUT -p tcp -m multiport --dports 80,443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT

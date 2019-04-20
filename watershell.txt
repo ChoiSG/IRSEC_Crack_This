@@ -1,0 +1,5 @@
+To find:
+  lsof | grep RAW
+  If anything weird shows (dhclient is normal), probably watershell. 
+  To make sure, you can strings path | grep "8.8."
+  strings path | grep phi

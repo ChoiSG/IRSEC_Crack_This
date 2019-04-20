@@ -1,5 +1,12 @@
 #!/bin/bash
 
+#
+#
+#   DEPRECATED. DO NOT USE. 
+#
+#
+
+
 : ' 
 author: choi
 Name: Headshothunter.sh
@@ -17,7 +24,7 @@ To find this out, do "nginx -V".
 
 Also, if /etc/nginx and /usr/share/nginx does NOT exist, that is possible headshotted nginx.
 
-<Note> If nginx -v is 1.15.0, then it has a high chance of being headshot.
+<Note> If nginx -v is 1.10.3, then it has a high chance of being headshot.
 
 '
 

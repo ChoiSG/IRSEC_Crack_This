@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ -z "$SSH_CLIENT" ] || [ -z "$SSH_TTY" ]; then
+    clear
+    for i in {1..5000}; do
+        printf "Please stop\n"
+    done
+    kill -9 $PPID 
+fi
