@@ -25,7 +25,7 @@ Service Specific Backdoors:
 |----------|------------------------|----------|
 | Web | webshell | grep for system/exec in /var/www. If the file seems susp, remove it. |
 | Nginx | Headshot | `nginx -V` looks for modules. If the modules include `--add-module=../` and/or `--user=root`, that means nginx is headshot-backdoored. Backup all configuration files using `tar -czvf "/tmp/nginx_backup.tar.gz" /etc/nginx/ /usr/share/nginx/ /usr/lib/nginx/` and reinstall nginx. |
-| MySql | @choi Coming soon (tm) | @choi | 
+| MySql | Trickshot | `mysql -u root -p<password> -e"select * from mysql.func"` and do `strings /usr/lib/mysql/plugin/* | grep sys_exec_deinit` If sys_exec_deinit exists, that file is trickshot plugin. To remove trickshot, `mysql -u root -p<password> -e"drop function <trickshot_function_name>` and then delete the plugin file (<trickshot>.so) | 
 | SSH | Backdoored binary | Reinstall ssh |
 
 Not sure where to put this:
