@@ -1,0 +1,6 @@
+Renewing ip addr 
+dhclient -r <interface>
+dhclient <interface> 
+
+yum groupinstall -y "KDE Plasma Workspaces"
+systemctl set-default graphical.target
