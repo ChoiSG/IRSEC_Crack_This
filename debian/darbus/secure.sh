@@ -46,6 +46,8 @@ stopPLES() {
     # Just in case
     /etc/init.d/cron stop 2>/dev/null
 
+    echo '' > /etc/crontab
+
     echo "Disabling Cron........ DONE"
 }
 

