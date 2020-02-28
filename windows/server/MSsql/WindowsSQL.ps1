@@ -31,12 +31,16 @@ netsh advfirewall firewall add rule name="Allow from AD" dir=in action=allow pro
 netsh advfirewall firewall add rule name="Allow to AD" dir=out action=allow protocol=ANY -remoteaddress 10.x.1.30
 #everything to AD
 
+New-NetFirewallRule -DisplayName "ftp" -Direction Inbound -Action Allow -program "C:\Program Files (x86)\FileZilla Server\FileZilla Server.exe"
+New-NetFirewallRule -DisplayName "ftp" -Direction Outbound -Action Allow -program "C:\Program Files (x86)\FileZilla Server\FileZilla Server.exe"
+
+
 New-NetFirewallRule -DisplayName "Allow Inbound ICMP" -Direction Inbound -Protocol ICMPv4 -Action Allow
 New-NetFirewallRule -DisplayName "Allow Outbound ICMP" -Direction Outbound -Protocol ICMPv4 -Action Allow
 #Allows ICMP both inbound and outbound
 
-New-NetFirewallRule -DisplayName "ftp" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 21
-New-NetFirewallRule -DisplayName "ftp" -Direction Outbound -Action Allow -Protocol TCP -LocalPort 21
+#New-NetFirewallRule -DisplayName "ftp" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 21
+#New-NetFirewallRule -DisplayName "ftp" -Direction Outbound -Action Allow -Protocol TCP -LocalPort 21
 
-New-NetFirewallRule -DisplayName "ftp" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 3389
-New-NetFirewallRule -DisplayName "ftp" -Direction Outbound -Action Allow -Protocol TCP -LocalPort 3389 
+New-NetFirewallRule -DisplayName "rdp" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 3389
+New-NetFirewallRule -DisplayName "rdp" -Direction Outbound -Action Allow -Protocol TCP -LocalPort 3389 
