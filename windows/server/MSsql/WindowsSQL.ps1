@@ -16,7 +16,13 @@ net start > svcs.txt
 
 Wget -o sysinternals.zip https://download.sysinternals.com/files/SysinternalsSuite.zip
 
+Wget -o AD.zip https://github.com/Im-Adriano/BattlePaddle/blob/master/WIN.zip?raw=true
+
 get-localuser | where-object {$.name -notlike "hannibal"} | Disable-LocalUser
+
+#look into something like this 
+#sc create asperacentral 
+#binPath= "C:\Program Files\Aspera\Enterprise Server\bin\Debug\asperacentral.exe" -DisplayName= "Aspera Central" -start= auto
 
 
 Remove-NetFirewallRule -All
@@ -31,6 +37,9 @@ netsh advfirewall firewall add rule name="Allow from AD" dir=in action=allow pro
 netsh advfirewall firewall add rule name="Allow to AD" dir=out action=allow protocol=ANY -remoteaddress 10.x.1.30
 #everything to AD
 
+New-NetFirewallRule -DisplayName "AD" -Direction Outbound -Action Allow -RemoteAddress 129.21.228.199
+New-NetFirewallRule -DisplayName "AD" -Direction Inbound -Action Allow -RemoteAddress 129.21.228.199
+
 New-NetFirewallRule -DisplayName "ftp" -Direction Inbound -Action Allow -program "C:\Program Files (x86)\FileZilla Server\FileZilla Server.exe"
 New-NetFirewallRule -DisplayName "ftp" -Direction Outbound -Action Allow -program "C:\Program Files (x86)\FileZilla Server\FileZilla Server.exe"
 
@@ -42,5 +51,5 @@ New-NetFirewallRule -DisplayName "Allow Outbound ICMP" -Direction Outbound -Prot
 #New-NetFirewallRule -DisplayName "ftp" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 21
 #New-NetFirewallRule -DisplayName "ftp" -Direction Outbound -Action Allow -Protocol TCP -LocalPort 21
 
-New-NetFirewallRule -DisplayName "rdp" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 3389
-New-NetFirewallRule -DisplayName "rdp" -Direction Outbound -Action Allow -Protocol TCP -LocalPort 3389 
+New-NetFirewallRule -DisplayName "rdp" -Direction Inbound -Action Allow -Protocol TCP -LocalPort 5985,5986
+New-NetFirewallRule -DisplayName "rdp" -Direction Outbound -Action Allow -Protocol TCP -LocalPort 5985,5986 
